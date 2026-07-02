@@ -1,0 +1,213 @@
+{
+    "name": "Integration Weather, Telegram Bot",
+    "flow": [
+        {
+            "id": 1,
+            "module": "weather:ActionGetDailyForecast",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "city": "Amravati",
+                "days": [
+                    2
+                ],
+                "type": "name"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "type": {
+                            "label": "cities"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "days",
+                        "type": "select",
+                        "label": "Days",
+                        "multiple": true,
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16
+                            ]
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "type": "select",
+                        "label": "I want to enter a location by",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "name",
+                                "coords"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "type": "text",
+                        "label": "City",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "telegram:SendReplyMessage",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 7856899
+            },
+            "mapper": {
+                "text": "Hello! Weather automation is working.   🌤 Weather Forecast\r\n\r\nCity: Amravati\r\n\r\nTemperature: {{1.temperature}}\r\n\n{{1.coord.lon}}   \n{{1.date}} {{1.wind}} {{1.rain}}\nHave a nice day! ",
+                "chatId": "1427984204",
+                "parseMode": "",
+                "replyMarkup": "",
+                "messageThreadId": "",
+                "replyToMessageId": "",
+                "replyMarkupAssembleType": "reply_markup_enter"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "parseMode": {
+                            "label": "Empty"
+                        },
+                        "disableNotification": {
+                            "mode": "chose"
+                        },
+                        "replyMarkupAssembleType": {
+                            "label": "Enter the Reply Markup"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "telegram"
+                            },
+                            "label": "Testsubjec_bot"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:telegram",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "chatId",
+                        "type": "text",
+                        "label": "Chat ID",
+                        "required": true
+                    },
+                    {
+                        "name": "text",
+                        "type": "text",
+                        "label": "Text",
+                        "required": true
+                    },
+                    {
+                        "name": "messageThreadId",
+                        "type": "number",
+                        "label": "Message Thread ID"
+                    },
+                    {
+                        "name": "parseMode",
+                        "type": "select",
+                        "label": "Parse Mode",
+                        "validate": {
+                            "enum": [
+                                "Markdown",
+                                "HTML"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "disableNotification",
+                        "type": "boolean",
+                        "label": "Disable Notifications"
+                    },
+                    {
+                        "name": "disableWebPagePreview",
+                        "type": "boolean",
+                        "label": "Disable Link Previews"
+                    },
+                    {
+                        "name": "replyToMessageId",
+                        "type": "number",
+                        "label": "Original Message ID"
+                    },
+                    {
+                        "name": "replyMarkupAssembleType",
+                        "type": "select",
+                        "label": "Enter/Assemble the Reply Markup Field",
+                        "validate": {
+                            "enum": [
+                                "reply_markup_enter",
+                                "reply_markup_assemble"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "replyMarkup",
+                        "type": "text",
+                        "label": "Reply Markup"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.make.com",
+        "notes": []
+    }
+}
